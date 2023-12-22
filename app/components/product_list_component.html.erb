@@ -1,0 +1,5 @@
+<div class="products">
+  <% @products.each do |product| %>    
+    <%= render ProductComponent.new(product) %>
+  <% end %>    
+</div>
