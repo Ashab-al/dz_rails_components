@@ -5,6 +5,7 @@
   <%= render ProductListComponent.new(@products) %>
 <% end %>
 
+<p>Сортировка по цене</p>
 <%= turbo_frame_tag 'sort_form' do %>
   <%= form_with(url: sort_products_path, method: :post, 'data-turbo-frame': 'sort_form') do |f| %>
     <%= f.select(:sort_by, options_for_select(
@@ -13,22 +14,42 @@
         ['От низкой цены', 'price_low']
       ]
     )) %>
-    <%= f.submit 'Сортировать по цене', 'data-turbo-frame': 'sort_form' %>
+    <%= f.submit 'Сортировать', 'data-turbo-frame': 'sort_form' %>
   <% end %>
 <% end %>
-
+<p>По имени товара (ручной ввод)</p>
 <%= turbo_frame_tag 'search_form' do %>
   <%= form_with(url: search_products_path, method: :post, 'data-turbo-frame': 'search_form') do |f| %>
     <%= f.text_field :search, 'data-turbo-frame': 'search_form' %>
-    <%= f.submit 'Сортировать по имени товара (ручной ввод)', 'data-turbo-frame': 'search_form' %>
+    <%= f.submit 'Сортировать', 'data-turbo-frame': 'search_form' %>
   <% end %>
 <% end %>
-
+<p>По категории</p>
 <%= turbo_frame_tag 'search_form' do %>
   <%= form_with(url: search_products_path, method: :post, 'data-turbo-frame': 'search_form') do |f| %>
     <%= f.select(:search, options_for_select(
       list_of_categories
     )) %>
     <%= f.submit 'Сортировать по категории', 'data-turbo-frame': 'search_form' %>
+  <% end %>
+<% end %>
+<p>По городу (ручной ввод)</p>
+<%= turbo_frame_tag 'search_by_city_form' do %>
+  <%= form_with(url: search_by_city_products_path, method: :post, 'data-turbo-frame': 'search_by_city_form') do |f| %>
+    <%= f.text_field :city, 'data-turbo-frame': 'search_by_city_form' %>
+    <%= f.submit 'Сортировать по городу (ручной ввод)', 'data-turbo-frame': 'search_by_city_form' %>
+  <% end %>
+<% end %>
+<p>Сортировка по городу и также по категории </p>
+
+<%= turbo_frame_tag 'search_for_city_category_form' do %>
+  <%= form_with(url: search_for_city_category_products_path, method: :post, 'data-turbo-frame': 'search_for_city_category_form') do |f| %>
+    <h4>Выбрать город</h4>
+    <%= f.text_field :city, 'data-turbo-frame': 'search_for_city_category_form' %>
+    <h4>Выбрать категорию</h4>
+    <%= f.select(:category_id, options_for_select(
+      list_of_categories
+    )) %>
+    <%= f.submit 'Сортировать', 'data-turbo-frame': 'search_for_city_category_form' %>
   <% end %>
 <% end %>

@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
                   Product.order(price: :desc).reverse
                 else
                   Product.all
-
                 end
   end
 
@@ -25,4 +24,13 @@ class ProductsController < ApplicationController
       Product.where(name: params["search"])
     end
   end
+
+  def search_by_city
+    @products = Product.where(city: params["city"])
+  end
+
+  def search_for_city_category
+    @products = Product.where(city: params["city"], category_id: params["category_id"].to_i)
+  end
+
 end
